@@ -1,0 +1,49 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Project Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects">
+      <td>{{ project.id }}</td>
+      <td>{{ project.name }}</td>
+      <td>
+        <button (click)="openEditForm(project)" class="btn btn-primary">
+          Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Project Name:</label>
+    <input type="text" class="form-control" formControlName="name" />
+  </div>
+  <button type="submit" class="btn btn-primary">Add Project</button>
+</form>
+
+<div *ngIf="selectedProject" class="card">
+  <h2 class="card-header">Edit Project</h2>
+  <div class="card-body">
+    <form (ngSubmit)="submitEditForm()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          id="name"
+          [(ngModel)]="selectedProject.name"
+          name="name"
+          required
+          class="form-control"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" (click)="closeEditForm()" class="btn btn-secondary">
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>
